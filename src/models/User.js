@@ -1,7 +1,7 @@
 const UsersSchema = (sequelize, DataTypes) => {
-    const UsersTable = sequelize.define('Users', {
+    const UsersTable = sequelize.define('User', {
         id: {
-            type: DataTypes.INTERGER,
+            type: DataTypes.INTEGER,
             primaryKey: true
         },
         displayName: DataTypes.STRING,
@@ -9,7 +9,8 @@ const UsersSchema = (sequelize, DataTypes) => {
         password: DataTypes.STRING, 
         image: DataTypes.STRING, 
     },{
-        underscored: true
+        underscored: true,
+        tableName: 'users'
     });
 
     UsersTable.associate = (models) => {

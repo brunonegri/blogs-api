@@ -5,10 +5,10 @@ const PostsCategorieSchema = (sequelize, DataTypes) => {
         timestamps: false,
     });
 
-    PostsCategorieTable.associate = (models) => {
-        models.blogPosts.belongsToMany(models.categories, { through: PostsCategorieTable}),
-        models.categories.belongsToMany(models.blogPosts, { through: PostsCategorieTable})
-    }
+    // PostsCategorieTable.associate = (models) => {
+    //     models.blogPosts.belongsToMany(models.categories, { through: PostsCategorieTable}),
+    //     models.categories.belongsToMany(models.blogPosts, { through: PostsCategorieTable})
+    // }
     return PostsCategorieTable
 }
 

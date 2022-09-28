@@ -1,7 +1,7 @@
 const BlogPostsSchema = (sequelize, DataTypes) => {
-    const BlogPostsTable = sequelize.define('blog_posts', {
+    const BlogPostsTable = sequelize.define('BlogPosts', {
         id: {
-            type: DataTypes.INTERGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
         },
         title: DataTypes.STRING,
@@ -15,10 +15,11 @@ const BlogPostsSchema = (sequelize, DataTypes) => {
     },{
         underscored: true,
         timestamps: false,
+        tablename: 'blog_posts'
     });
 
     BlogPostsTable.associate = (models) => {
-        BlogPostsTable.belongsTo(models.users, {
+        BlogPostsTable.belongsTo(models.User, {
             as: 'users',
             foreignKey: 'userId'
         })
