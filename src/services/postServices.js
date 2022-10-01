@@ -1,4 +1,5 @@
 const { BlogPost, Category, PostCategory, sequelize, User } = require('../models');
+const errorHandle = require('../utils/errorHandle');
 
 const insertPost = async (req, userId) => {
     const { title, content, categoryIds } = req;
@@ -28,13 +29,18 @@ const getPosts = async () => {
 };
 
 const getPostsById = async (id) => {
-    const post = BlogPost.findOne({ where: { id } });
+    const post = await BlogPost.findByPk(id, {
+        include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    if (post === null) throw errorHandle(404, 'Post does not exist');
+
     return post;
 };
 
 const updatePost = async (req, id) => {
     const { content, title } = req;
-    const updated = BlogPost.update({ content, title }, { where: { id } });
+    const updated = await BlogPost.update({ content, title }, { where: { id } });
     return updated;
 };
 
