@@ -1,4 +1,5 @@
 const userServices = require('../services/userServices');
+const errorHandle = require('../utils/errorHandle');
 
 const insertUser = async (req, res, next) => {
     try {
@@ -11,10 +12,20 @@ const insertUser = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
     try {
-        const auth = await userServices.getUser();
+        const user = await userServices.getUser();
 
-        req.user = auth;
-        return res.status(200).json(auth);
+        return res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const getUserById = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const userById = await userServices.getUserById(id);
+        if (!userById) throw errorHandle(404, 'User does not exist');
+        res.status(200).json(userById);
     } catch (err) {
         next(err);
     }
@@ -23,4 +34,5 @@ const getUser = async (req, res, next) => {
 module.exports = {
     insertUser,
     getUser,
+    getUserById,
 };
