@@ -18,7 +18,10 @@ const authenticateToken = async (token) => {
     }
 };
 
+const decodeToken = (token) => jwt.decode(token);
+
 module.exports = {
     generateToken,
     authenticateToken,
+    decodeToken,
 };

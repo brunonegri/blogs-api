@@ -7,6 +7,9 @@ const authMiddleware = async (req, res, next) => {
     const user = await authenticateToken(token);
 
     if (!user) return next(errorHandle(401, 'Expired or invalid token'));
+    
+    req.user = user;
+    
     next();
 };
 
