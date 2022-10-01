@@ -15,7 +15,7 @@ const UsersSchema = (sequelize, DataTypes) => {
     });
 
     UsersTable.associate = (models) => {
-        UsersTable.hasMany(models.BlogPosts, {
+        UsersTable.hasMany(models.BlogPost, {
             as: 'blog_posts',
             foreignKey: 'userId'
         })

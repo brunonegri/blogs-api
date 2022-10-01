@@ -7,8 +7,8 @@ const PostsCategorieSchema = (sequelize, DataTypes) => {
     });
 
     PostsCategorieTable.associate = (models) => {
-        models.BlogPosts.belongsToMany(models.Category, { through: PostsCategorieTable}),
-        models.Category.belongsToMany(models.BlogPosts, { through: PostsCategorieTable})
+        models.BlogPost.belongsToMany(models.Category, { through: PostsCategorieTable}),
+        models.Category.belongsToMany(models.BlogPost, { through: PostsCategorieTable})
     }
     return PostsCategorieTable
 }
