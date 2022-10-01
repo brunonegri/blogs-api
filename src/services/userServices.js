@@ -13,10 +13,15 @@ const insertUser = async (req) => {
     const payload = { userID: user.id, userName: user.displayName };
 
     const token = generateToken(payload);
-    // console.log(token);
     return { token };
+};
+
+const getUser = async () => {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    return users;
 };
 
 module.exports = {
     insertUser,
+    getUser,
 };
