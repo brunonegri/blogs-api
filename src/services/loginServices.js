@@ -5,7 +5,7 @@ const errorHandle = require('../utils/errorHandle');
 const loginRequest = async ({ email, password }) => {
    const user = await User.findOne({ where: { email, password } });
 
-   if (!user) throw errorHandle(404, 'Invalid Fields');
+   if (!user) throw errorHandle(400, 'Invalid fields');
 
    const payload = { userID: user.id, userName: user.displayName };
    
