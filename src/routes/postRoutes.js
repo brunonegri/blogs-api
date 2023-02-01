@@ -10,5 +10,6 @@ router.post('/', authMiddleware, postMiddlware, checkCategory, postController.in
 router.get('/:id', authMiddleware, postController.getPostsById);
 router.put('/:id', authMiddleware, updateMiddlware, postController.updatePost);
 router.get('/', authMiddleware, postController.getPosts);
+router.delete('/:id', authMiddleware, postController.deletePost);
 
 module.exports = router;

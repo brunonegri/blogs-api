@@ -1,5 +1,6 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, PostCategory, sequelize, User } = require('../models');
-const errorHandle = require('../utils/errorHandle');
+// const errorHandle = require('../utils/errorHandle');
 
 const insertPost = async (req, userId) => {
     const { title, content, categoryIds } = req;
@@ -33,7 +34,7 @@ const getPostsById = async (id) => {
         include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
         { model: Category, as: 'categories', through: { attributes: [] } }],
     });
-    if (post === null) throw errorHandle(404, 'Post does not exist');
+    // if (post === null) throw errorHandle(404, 'Post does not exist');
 
     return post;
 };
@@ -44,9 +45,20 @@ const updatePost = async (req, id) => {
     return updated;
 };
 
+const deletePost = async (id, userId) => {
+    // const post = await BlogPost.findByPk(id);
+    // if (!post) throw errorHandle(404, 'Post does not exist');
+    const delPost = await BlogPost.destroy({ where: {
+        [Op.and]: [{ id }, { userId }],
+    } });
+    console.log(delPost);
+    return delPost;
+};
+
 module.exports = {
     insertPost,
     getPosts,
     getPostsById,
     updatePost,
+    deletePost,
 };
